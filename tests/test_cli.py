@@ -12,8 +12,8 @@ from pathlib import Path
 # Add the parent directory to the path to import our module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.install_binary.cli import create_parser, main
-from src.install_binary import ValidationError
+from src.installer.cli import create_parser, main
+from src.installer import ValidationError
 
 
 class TestCLIParser:
@@ -55,39 +55,39 @@ class TestCLIParser:
 class TestCLIMain:
     """Test main CLI functionality"""
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_history_mode(self, mock_installer_class):
         """Test history display mode"""
         mock_installer = MagicMock()
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', '--history']):
+        with patch('sys.argv', ['installer', '--history']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
         assert exc_info.value.code == 0
         mock_installer.history.display_history.assert_called_once_with(show_all=False)
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_history_search_mode(self, mock_installer_class):
         """Test history search mode"""
         mock_installer = MagicMock()
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', '--history', '--search', 'myapp']):
+        with patch('sys.argv', ['installer', '--history', '--search', 'myapp']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
         assert exc_info.value.code == 0
         mock_installer.history.search_history.assert_called_once_with('myapp')
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_user_mode(self, mock_installer_class):
         """Test user installation mode"""
         mock_installer = MagicMock()
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', '--user', '--history']):
+        with patch('sys.argv', ['installer', '--user', '--history']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
@@ -95,7 +95,7 @@ class TestCLIMain:
         # Should use user directory
         assert mock_installer_class.call_args[0][0] == Path.home() / ".local/bin"
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     @patch('builtins.print')
     def test_privilege_check_failure(self, mock_print, mock_installer_class):
         """Test privilege check when not running as root"""
@@ -103,7 +103,7 @@ class TestCLIMain:
         mock_installer.check_privileges.return_value = False
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', 'myfile']):
+        with patch('sys.argv', ['installer', 'myfile']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
@@ -111,21 +111,21 @@ class TestCLIMain:
         # Should print error message
         assert any("sudo/root privileges" in str(call) for call in mock_print.call_args_list)
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_install_self_mode(self, mock_installer_class):
         """Test self-installation mode"""
         mock_installer = MagicMock()
         mock_installer.install_self.return_value = True
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', '--install-self']):
+        with patch('sys.argv', ['installer', '--install-self']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
         assert exc_info.value.code == 0
         mock_installer.install_self.assert_called_once()
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_uninstall_mode(self, mock_installer_class):
         """Test uninstallation mode"""
         mock_installer = MagicMock()
@@ -133,14 +133,14 @@ class TestCLIMain:
         mock_installer.check_privileges.return_value = True
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', '--uninstall', 'myapp']):
+        with patch('sys.argv', ['installer', '--uninstall', 'myapp']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
         assert exc_info.value.code == 0
         mock_installer.uninstall_file.assert_called_once_with('myapp')
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_install_file_mode(self, mock_installer_class):
         """Test normal file installation mode"""
         mock_installer = MagicMock()
@@ -148,7 +148,7 @@ class TestCLIMain:
         mock_installer.check_privileges.return_value = True
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary', 'myfile.py', '--name', 'custom']):
+        with patch('sys.argv', ['installer', 'myfile.py', '--name', 'custom']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
         
@@ -160,15 +160,15 @@ class TestCLIMain:
             remove_extension=True
         )
     
-    @patch('src.install_binary.cli.UniversalInstaller')
+    @patch('src.installer.cli.UniversalInstaller')
     def test_no_file_provided(self, mock_installer_class):
         """Test behavior when no file is provided"""
         mock_installer = MagicMock()
         mock_installer.check_privileges.return_value = True
         mock_installer_class.return_value = mock_installer
         
-        with patch('sys.argv', ['install-binary']):
-            with patch('src.install_binary.cli.create_parser') as mock_parser_func:
+        with patch('sys.argv', ['installer']):
+            with patch('src.installer.cli.create_parser') as mock_parser_func:
                 mock_parser = MagicMock()
                 mock_parser_func.return_value = mock_parser
                 mock_parser.parse_args.return_value = MagicMock(

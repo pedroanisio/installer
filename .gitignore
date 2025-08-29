@@ -145,11 +145,11 @@ cython_debug/
 .DS_Store
 
 # History files (local testing)
-install-binary-history.json
+installer-history.json
 .history_*.tmp
 
 # Old files from refactoring
-install-binary.py
+installer.py
 test_install_binary.py
 
 # Generated documentation

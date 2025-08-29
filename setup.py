@@ -1,5 +1,5 @@
 """
-Setup script for install-binary
+Setup script for installer
 """
 
 from setuptools import setup, find_packages
@@ -11,14 +11,14 @@ with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='install-binary',
+    name='installer',
     version='1.0.0',
     description='A secure tool for installing binaries and scripts system-wide',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Your Name',
     author_email='your.email@example.com',
-    url='https://github.com/yourusername/install-binary',
+    url='https://github.com/pedroanisio/installer',
     license='MIT',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -55,11 +55,11 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'install-binary=install_binary.cli:main',
+            'installer=installer.cli:main',
         ],
     },
     project_urls={
-        'Bug Reports': 'https://github.com/yourusername/install-binary/issues',
-        'Source': 'https://github.com/yourusername/install-binary',
+        'Bug Reports': 'https://github.com/pedroanisio/installer/issues',
+        'Source': 'https://github.com/pedroanisio/installer',
     },
 )

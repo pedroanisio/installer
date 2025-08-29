@@ -1,25 +1,25 @@
-.\" Manpage for install-binary
+.\" Manpage for installer
 .\" Contact your.email@example.com to correct errors or typos.
-.TH INSTALL-BINARY 1 "January 2024" "1.0.0" "User Commands"
+.TH INSTALLER 1 "January 2024" "1.0.0" "User Commands"
 
 .SH NAME
-install-binary \- secure tool for installing binaries and scripts system-wide with history tracking
+installer \- secure tool for installing binaries and scripts system-wide with history tracking
 
 .SH SYNOPSIS
-.B install-binary
+.B installer
 [\fIOPTIONS\fR] \fIFILE\fR
 .br
-.B install-binary
+.B installer
 \fB\-\-history\fR [\fB\-\-all\fR] [\fB\-\-search\fR \fIQUERY\fR]
 .br
-.B install-binary
+.B installer
 \fB\-\-uninstall\fR \fIFILE_NAME\fR
 .br
-.B install-binary
+.B installer
 \fB\-\-install\-self\fR
 
 .SH DESCRIPTION
-.B install-binary
+.B installer
 is a secure, feature-rich tool for installing compiled binaries and Python scripts system-wide.
 It provides comprehensive history tracking, protection against security vulnerabilities, and
 supports both system-wide and user-local installations.
@@ -60,7 +60,7 @@ does not require sudo privileges.
 
 .TP
 .BR \-S ", " \-\-install\-self
-Install the install-binary tool itself to the system PATH.
+Install the installer tool itself to the system PATH.
 
 .TP
 .BR \-H ", " \-\-history
@@ -84,7 +84,7 @@ Use a custom history file location instead of the default.
 Display help message and exit.
 
 .SH SECURITY FEATURES
-.B install-binary
+.B installer
 implements several security measures:
 
 .TP
@@ -119,49 +119,49 @@ Default system-wide installation directory.
 User installation directory (when using \-\-user flag).
 
 .TP
-.I /var/log/install-binary-history.json
+.I /var/log/installer-history.json
 System-wide installation history file (requires root).
 
 .TP
-.I ~/.local/share/install-binary/history.json
+.I ~/.local/share/installer/history.json
 User installation history file.
 
 .SH EXAMPLES
 .TP
 Install a binary system-wide:
-.B sudo install-binary ./myprogram
+.B sudo installer ./myprogram
 
 .TP
 Install a Python script (removes .py extension):
-.B sudo install-binary ./script.py
+.B sudo installer ./script.py
 
 .TP
 Install with a custom name:
-.B sudo install-binary ./build/app-v2.1 --name myapp
+.B sudo installer ./build/app-v2.1 --name myapp
 
 .TP
 Install to user directory without sudo:
-.B install-binary ./myprogram --user
+.B installer ./myprogram --user
 
 .TP
 View installation history:
-.B sudo install-binary --history
+.B sudo installer --history
 
 .TP
 Search history for a specific file:
-.B sudo install-binary --history --search myapp
+.B sudo installer --history --search myapp
 
 .TP
 View all installation/uninstallation events:
-.B sudo install-binary --history --all
+.B sudo installer --history --all
 
 .TP
 Uninstall a file:
-.B sudo install-binary --uninstall myapp
+.B sudo installer --uninstall myapp
 
 .TP
 Install the installer itself:
-.B sudo install-binary --install-self
+.B sudo installer --install-self
 
 .SH EXIT STATUS
 .TP
@@ -194,7 +194,7 @@ The tool ensures all Python scripts have proper shebang lines and makes them
 executable.
 
 .SH BUGS
-Report bugs to: https://github.com/pedroanisio/install-binary/issues
+Report bugs to: https://github.com/pedroanisio/installer/issues
 
 .SH AUTHOR
 Written by Your Name.
@@ -213,4 +213,4 @@ There is NO WARRANTY, to the extent permitted by law.
 
 The full documentation is available at:
 .br
-https://github.com/pedroanisio/install-binary
+https://github.com/pedroanisio/installer

@@ -1,5 +1,5 @@
 """
-Entry point for running install-binary as a module
+Entry point for running installer as a module
 """
 
 from .cli import main

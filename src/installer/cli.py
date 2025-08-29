@@ -1,5 +1,5 @@
 """
-Command-line interface for install-binary tool
+Command-line interface for installer tool
 """
 
 import sys
@@ -18,29 +18,29 @@ def create_parser() -> argparse.ArgumentParser:
         epilog="""
 Examples:
   # Install a binary
-  sudo install-binary ./myprogram
+  sudo installer ./myprogram
   
   # Install a Python script (removes .py extension by default)
-  sudo install-binary ./script.py
+  sudo installer ./script.py
   
   # Install with custom name
-  sudo install-binary ./build/app --name myapp
+  sudo installer ./build/app --name myapp
   
   # View installation history
-  sudo install-binary --history
-  install-binary --history --user  # User installations
+  sudo installer --history
+  installer --history --user  # User installations
   
   # Search history
-  sudo install-binary --history --search myapp
+  sudo installer --history --search myapp
   
   # Install this installer itself
-  sudo install-binary --install-self
+  sudo installer --install-self
   
   # User installation (no sudo needed)
-  install-binary ./script.py --user
+  installer ./script.py --user
   
   # Uninstall
-  sudo install-binary --uninstall myapp
+  sudo installer --uninstall myapp
   
 Note: This script requires sudo/root privileges for system-wide installation
       Use --user flag to install to ~/.local/bin/ without sudo
@@ -146,7 +146,7 @@ def main() -> None:
     # Check privileges for system-wide installation
     if not args.user and not installer.check_privileges():
         print("✗ Error: This script requires sudo/root privileges for system-wide installation.")
-        print("  Run with: sudo install-binary <file_path>")
+        print("  Run with: sudo installer <file_path>")
         print("  Or use --user flag to install to ~/.local/bin/ without sudo")
         sys.exit(1)
     
@@ -156,10 +156,10 @@ def main() -> None:
         if success:
             print("\n" + "=" * 50)
             print("🎉 Self-installation complete!")
-            print("You can now use 'install-binary' command from anywhere:")
-            print("  install-binary ./myprogram")
-            print("  install-binary ./script.py")
-            print("  install-binary --history")
+            print("You can now use 'installer' command from anywhere:")
+            print("  installer ./myprogram")
+            print("  installer ./script.py")
+            print("  installer --history")
         sys.exit(0 if success else 1)
     
     # Handle uninstall mode

@@ -1,5 +1,5 @@
 """
-Custom exceptions for install-binary tool
+Custom exceptions for installer tool
 """
 
 

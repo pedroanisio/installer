@@ -1,4 +1,4 @@
-# install-binary
+# installer
 
 A secure, feature-rich tool for installing binaries and scripts system-wide with comprehensive history tracking.
 
@@ -23,24 +23,24 @@ A secure, feature-rich tool for installing binaries and scripts system-wide with
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Clone and install with uv
-git clone https://github.com/pedroanisio/install-binary.git
-cd install-binary
+git clone https://github.com/pedroanisio/installer.git
+cd installer
 uv pip install -e .
 
 # Or install directly from PyPI (when published)
-uv pip install install-binary
+uv pip install installer
 ```
 
 ### Using pip
 
 ```bash
 # From source
-git clone https://github.com/pedroanisio/install-binary.git
-cd install-binary
+git clone https://github.com/pedroanisio/installer.git
+cd installer
 pip install -e .
 
 # From PyPI
-pip install install-binary
+pip install installer
 ```
 
 ### Self-Installation
@@ -48,7 +48,7 @@ pip install install-binary
 The tool can install itself:
 
 ```bash
-sudo python3 -m install_binary --install-self
+sudo python3 -m installer --install-self
 ```
 
 ### Installing with Make (includes man page)
@@ -61,7 +61,7 @@ sudo make install
 sudo make install-man
 
 # View the man page after installation
-man install-binary
+man installer
 ```
 
 ## Usage
@@ -71,13 +71,13 @@ man install-binary
 Install a binary or script system-wide:
 
 ```bash
-sudo install-binary ./myprogram
+sudo installer ./myprogram
 ```
 
 Install a Python script (removes .py extension automatically):
 
 ```bash
-sudo install-binary ./myscript.py
+sudo installer ./myscript.py
 ```
 
 ### User Installation
@@ -85,7 +85,7 @@ sudo install-binary ./myscript.py
 Install to `~/.local/bin` without sudo:
 
 ```bash
-install-binary ./myprogram --user
+installer ./myprogram --user
 ```
 
 ### Custom Names
@@ -93,7 +93,7 @@ install-binary ./myprogram --user
 Install with a different name:
 
 ```bash
-sudo install-binary ./build/app-v2.1 --name myapp
+sudo installer ./build/app-v2.1 --name myapp
 ```
 
 ### View History
@@ -101,19 +101,19 @@ sudo install-binary ./build/app-v2.1 --name myapp
 See all currently installed files:
 
 ```bash
-sudo install-binary --history
+sudo installer --history
 ```
 
 View all installation/uninstallation events:
 
 ```bash
-sudo install-binary --history --all
+sudo installer --history --all
 ```
 
 Search history:
 
 ```bash
-sudo install-binary --history --search myapp
+sudo installer --history --search myapp
 ```
 
 ### Uninstallation
@@ -121,7 +121,7 @@ sudo install-binary --history --search myapp
 Remove an installed file:
 
 ```bash
-sudo install-binary --uninstall myapp
+sudo installer --uninstall myapp
 ```
 
 ## Security Features
@@ -146,8 +146,8 @@ All installations use temporary files and atomic moves to ensure system consiste
 
 ```bash
 # Clone the repository
-git clone https://github.com/pedroanisio/install-binary.git
-cd install-binary
+git clone https://github.com/pedroanisio/installer.git
+cd installer
 
 # Create virtual environment with uv
 uv venv
@@ -161,8 +161,8 @@ uv pip install -e ".[dev]"
 
 ```bash
 # Clone the repository
-git clone https://github.com/pedroanisio/install-binary.git
-cd install-binary
+git clone https://github.com/pedroanisio/installer.git
+cd installer
 
 # Create virtual environment
 python3 -m venv venv
@@ -179,7 +179,7 @@ pip install -e ".[dev]"
 pytest
 
 # Run with coverage
-pytest --cov=install_binary --cov-report=term-missing
+pytest --cov=installer --cov-report=term-missing
 
 # Run specific test file
 pytest tests/test_installer.py
@@ -218,9 +218,9 @@ uv pip sync requirements-dev.txt
 ## Project Structure
 
 ```
-install-binary/
+installer/
 ├── src/
-│   └── install_binary/
+│   └── installer/
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── cli.py
@@ -235,7 +235,7 @@ install-binary/
 │   ├── test_history.py
 │   └── test_installer_additional.py
 ├── docs/
-│   └── install-binary.1      # Man page
+│   └── installer.1      # Man page
 ├── pyproject.toml
 ├── setup.py
 ├── Makefile                  # Build and install tasks
@@ -278,7 +278,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For bugs and feature requests, please use the [issue tracker](https://github.com/yourusername/install-binary/issues).
+For bugs and feature requests, please use the [issue tracker](https://github.com/pedroanisio/installer/issues).
 
 ## Changelog
 

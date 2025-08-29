@@ -1,5 +1,5 @@
 """
-install-binary: A secure tool for installing binaries and scripts system-wide
+installer: A secure tool for installing binaries and scripts system-wide
 """
 
 __version__ = "1.0.0"

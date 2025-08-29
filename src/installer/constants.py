@@ -1,5 +1,5 @@
 """
-Constants used throughout the install-binary tool
+Constants used throughout the installer tool
 """
 
 import os
@@ -8,9 +8,9 @@ from pathlib import Path
 # Directory constants
 DEFAULT_INSTALL_DIR = "/usr/local/bin"
 USER_INSTALL_DIR = ".local/bin"
-HISTORY_FILE_NAME = "install-binary-history.json"
+HISTORY_FILE_NAME = "installer-history.json"
 HISTORY_DIR_SYSTEM = "/var/log"
-HISTORY_DIR_USER = ".local/share/install-binary"
+HISTORY_DIR_USER = ".local/share/installer"
 
 # File operation constants
 DEFAULT_PERMISSIONS = 0o755

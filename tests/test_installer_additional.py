@@ -13,8 +13,8 @@ from unittest.mock import patch, MagicMock, Mock
 # Add the parent directory to the path to import our module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.install_binary.installer import UniversalInstaller
-from src.install_binary.exceptions import ValidationError, PermissionError, InstallationError
+from src.installer.installer import UniversalInstaller
+from src.installer.exceptions import ValidationError, PermissionError, InstallationError
 
 
 class TestInstallerEdgeCases:

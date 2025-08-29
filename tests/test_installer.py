@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test suite for install-binary.py
+Test suite for installer.py
 Following TDD principles with comprehensive test coverage
 """
 
@@ -20,7 +20,7 @@ from datetime import datetime
 # Add the parent directory to the path to import our module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.install_binary import (
+from src.installer import (
     HistoryManager,
     UniversalInstaller,
     InstallationError,

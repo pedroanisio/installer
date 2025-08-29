@@ -1,1 +1,1 @@
-# Test module for install-binary
+# Test module for installer

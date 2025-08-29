@@ -14,8 +14,8 @@ from unittest.mock import patch, mock_open, MagicMock
 # Add the parent directory to the path to import our module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.install_binary.history import HistoryManager
-from src.install_binary.exceptions import ValidationError, PermissionError, InstallationError
+from src.installer.history import HistoryManager
+from src.installer.exceptions import ValidationError, PermissionError, InstallationError
 
 
 class TestHistoryDisplay:
