@@ -1,0 +1,216 @@
+.\" Manpage for install-binary
+.\" Contact your.email@example.com to correct errors or typos.
+.TH INSTALL-BINARY 1 "January 2024" "1.0.0" "User Commands"
+
+.SH NAME
+install-binary \- secure tool for installing binaries and scripts system-wide with history tracking
+
+.SH SYNOPSIS
+.B install-binary
+[\fIOPTIONS\fR] \fIFILE\fR
+.br
+.B install-binary
+\fB\-\-history\fR [\fB\-\-all\fR] [\fB\-\-search\fR \fIQUERY\fR]
+.br
+.B install-binary
+\fB\-\-uninstall\fR \fIFILE_NAME\fR
+.br
+.B install-binary
+\fB\-\-install\-self\fR
+
+.SH DESCRIPTION
+.B install-binary
+is a secure, feature-rich tool for installing compiled binaries and Python scripts system-wide.
+It provides comprehensive history tracking, protection against security vulnerabilities, and
+supports both system-wide and user-local installations.
+
+The tool automatically detects Python scripts and handles shebang management, removes .py
+extensions by default, and maintains a complete audit trail of all installations and
+uninstallations.
+
+.SH OPTIONS
+.TP
+.I FILE
+Path to the binary or script to install.
+
+.TP
+.BR \-n ", " \-\-name " " \fINAME\fR
+Install the file with a custom name instead of using the source filename.
+
+.TP
+.BR \-f ", " \-\-force
+Force overwrite if the target file already exists without prompting.
+
+.TP
+.BR \-k ", " \-\-keep\-extension
+Keep the .py extension for Python scripts (default behavior is to remove it).
+
+.TP
+.BR \-d ", " \-\-install\-dir " " \fIDIRECTORY\fR
+Specify the installation directory (default: /usr/local/bin).
+
+.TP
+.BR \-u ", " \-\-uninstall " " \fIFILE_NAME\fR
+Uninstall a previously installed file from the installation directory.
+
+.TP
+.BR \-U ", " \-\-user
+Install to user directory (~/.local/bin) instead of system-wide. This option
+does not require sudo privileges.
+
+.TP
+.BR \-S ", " \-\-install\-self
+Install the install-binary tool itself to the system PATH.
+
+.TP
+.BR \-H ", " \-\-history
+Display installation history. Shows currently installed files by default.
+
+.TP
+.BR \-a ", " \-\-all
+When used with \-\-history, shows all installation and uninstallation events
+instead of just currently installed files.
+
+.TP
+.BR \-s ", " \-\-search " " \fIQUERY\fR
+Search history for specific files or patterns. Must be used with \-\-history.
+
+.TP
+.B \-\-history\-file " " \fIFILE\fR
+Use a custom history file location instead of the default.
+
+.TP
+.BR \-h ", " \-\-help
+Display help message and exit.
+
+.SH SECURITY FEATURES
+.B install-binary
+implements several security measures:
+
+.TP
+.B Path Traversal Protection
+Validates all paths to ensure files are only installed within the designated directory.
+
+.TP
+.B Symlink Detection
+Detects and rejects symlinks and hardlinks to prevent security vulnerabilities.
+
+.TP
+.B TOCTOU Prevention
+Prevents time-of-check to time-of-use attacks by verifying file integrity throughout
+the installation process.
+
+.TP
+.B Atomic Operations
+Uses temporary files and atomic moves to ensure system consistency and prevent
+corruption during installation.
+
+.TP
+.B File Locking
+Implements proper file locking for history operations to prevent race conditions.
+
+.SH FILES
+.TP
+.I /usr/local/bin
+Default system-wide installation directory.
+
+.TP
+.I ~/.local/bin
+User installation directory (when using \-\-user flag).
+
+.TP
+.I /var/log/install-binary-history.json
+System-wide installation history file (requires root).
+
+.TP
+.I ~/.local/share/install-binary/history.json
+User installation history file.
+
+.SH EXAMPLES
+.TP
+Install a binary system-wide:
+.B sudo install-binary ./myprogram
+
+.TP
+Install a Python script (removes .py extension):
+.B sudo install-binary ./script.py
+
+.TP
+Install with a custom name:
+.B sudo install-binary ./build/app-v2.1 --name myapp
+
+.TP
+Install to user directory without sudo:
+.B install-binary ./myprogram --user
+
+.TP
+View installation history:
+.B sudo install-binary --history
+
+.TP
+Search history for a specific file:
+.B sudo install-binary --history --search myapp
+
+.TP
+View all installation/uninstallation events:
+.B sudo install-binary --history --all
+
+.TP
+Uninstall a file:
+.B sudo install-binary --uninstall myapp
+
+.TP
+Install the installer itself:
+.B sudo install-binary --install-self
+
+.SH EXIT STATUS
+.TP
+.B 0
+Successful execution.
+
+.TP
+.B 1
+An error occurred during execution (e.g., installation failed, file not found,
+permission denied).
+
+.SH ENVIRONMENT
+.TP
+.B SUDO_USER
+Used to track which user initiated a sudo installation.
+
+.TP
+.B USER
+Fallback for tracking the installing user if SUDO_USER is not set.
+
+.SH NOTES
+System-wide installations require sudo/root privileges. Use the \-\-user flag to
+install to ~/.local/bin without elevated privileges.
+
+The tool maintains a complete history of all installations and uninstallations,
+which can be useful for system administration and auditing purposes.
+
+Python scripts are automatically detected by their .py extension or shebang line.
+The tool ensures all Python scripts have proper shebang lines and makes them
+executable.
+
+.SH BUGS
+Report bugs to: https://github.com/pedroanisio/install-binary/issues
+
+.SH AUTHOR
+Written by Your Name.
+
+.SH COPYRIGHT
+Copyright © 2024 Your Name. License: MIT
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+.SH SEE ALSO
+.BR chmod (1),
+.BR install (1),
+.BR pip (1),
+.BR which (1)
+
+The full documentation is available at:
+.br
+https://github.com/pedroanisio/install-binary
